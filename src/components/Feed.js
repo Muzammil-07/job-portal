@@ -26,6 +26,9 @@ const Feed = () => {
       <p>{data[0].description.slice(0,200)}</p>
       <h3>Active 3 days ago</h3>
      </div>
+     <div>
+      
+     </div>
     </div>
 
   )
