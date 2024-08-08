@@ -19,6 +19,7 @@ const Header = () => {
             <BsFillBellFill />
             </span>
             <span><BsPersonFill /></span>
+            <button>Login</button>
             <div><button className='text-sm'>Employer/Job Post</button></div>
          </div>
       
