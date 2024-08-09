@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image';
 import logo from "../../public/logo.png"
 import { BsChatLeftTextFill,BsFillBellFill , BsPersonFill } from "react-icons/bs";
+import Link from 'next/link';
 const Header = () => {
   return (
     <div>
@@ -19,7 +20,7 @@ const Header = () => {
             <BsFillBellFill />
             </span>
             <span><BsPersonFill /></span>
-            <button>Login</button>
+           <Link href="/login"> <button>Login</button></Link>
             <div><button className='text-sm'>Employer/Job Post</button></div>
          </div>
       

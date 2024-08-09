@@ -4,8 +4,9 @@ import { BsThreeDotsVertical, BsBookmark, BsBriefcase } from "react-icons/bs";
 
 import { GrCurrency } from "react-icons/gr";
 const Feed = () => {
-  const[currentData,setCurrentData]=useState({});
   const empttObj ={}
+  const[currentData,setCurrentData]=useState(empttObj);
+ 
   const data = [
     {
       companyName: "vision Tech",
@@ -104,7 +105,8 @@ const Feed = () => {
           <h2 className='text-lg font-bold'>Full Job Detail</h2>
           <p>{currentData?.description}</p>
         </div>
-      </div>: 
+      </div>
+      : 
       <div className='border border-black rounded-lg px-4 space-y-1 py-2 h-full  overflow-y-scroll '>
        <h1 className='font-sans text-2xl '>{data[0].title}</h1>
       
