@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '@/components/Header'
 import SearchBar from '@/components/SearchBar'
 import Feed from '@/components/Feed'
+
 const Dashboard = ({Childrens}) => {
   return (
     <div><Header />

@@ -1,12 +1,26 @@
 import Dashboard from '@/pages/dashboard'
 import React, { useState } from 'react'
 import { BsThreeDotsVertical, BsBookmark, BsBriefcase } from "react-icons/bs";
-
+import { useQuery } from 'react-query';
 import { GrCurrency } from "react-icons/gr";
+import axios from 'axios';
 const Feed = () => {
+
+  const fetchData =async()=>{
+    try{
+   const res =await axios.get("http://localhost:5000/api/jobs/get-job");
+   return res.data
+    }catch(error){
+  console.log(error)
+    }
+
+  }
   const empttObj ={}
   const[currentData,setCurrentData]=useState(empttObj);
- 
+ const data2= useQuery('Jobs',fetchData)
+ if(!data2.isLoading){
+  console.log(data2?.data?.data)
+ }
   const data = [
     {
       companyName: "vision Tech",
