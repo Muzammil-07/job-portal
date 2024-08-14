@@ -5,7 +5,9 @@ import { useState,useEffect,useRef } from 'react'
 import Link from 'next/link'
 import SelectSearch from 'react-select-search'
 import jobsData from '../jobs'
+import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import 'react-select-search/style.css'
+import cities from '../cities'
 const JobPost = () => {
     const [formData,setFormData]=useState({
         title:"",
@@ -21,6 +23,35 @@ const JobPost = () => {
      const handleFormChange= (event)=>{
      const {name,value} =event.target;
      setFormData((prev)=>({...prev,[name]:value}))
+    }
+    const handleOnSearch = (string, results) => {
+      // onSearch will have as the first callback parameter
+      // the string searched and for the second the results.
+      console.log(string, results)
+    }
+  
+    const handleOnHover = (result) => {
+      // the item hovered
+      console.log(result)
+    }
+  
+    const handleOnSelect = (item) => {
+      // the item selected
+      console.log(item.name)
+      setFormData((e)=>({...e,city:item.name}));
+      
+    }
+  
+    const handleOnFocus = () => {
+      console.log('Focused')
+    }
+  
+    const formatResult = (item) => {
+      return (
+        <>
+          <span style={{ display: 'block', textAlign: 'left',width:200 }}> {item.name}</span>
+        </>
+      )
     }
     const handleCancle=()=>{
       setFormData({
@@ -141,13 +172,28 @@ const JobPost = () => {
           />
           </div>
           </div>
-          
           <div className='px-4 col-span-2 md:col-span-1'>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700"> Category </label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700"> Select City </label>
+            <span className='bg-gray-400  w-full'>
+            <ReactSearchAutocomplete
+            items={cities}
+            onSearch={handleOnSearch}
+            onHover={handleOnHover}
+            onSelect={handleOnSelect}
+            onFocus={handleOnFocus}
+            autoFocus
+            formatResult={formatResult}
+            placeholder='Select City'
+          />
+            </span>
+          </div>
+          <div className='px-4 col-span-2 md:col-span-1'>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700"> Select Category </label>
             <span className='bg-gray-400 w-full'>
             <SelectSearch options={jobsData} name="" value={formData.category} placeholder='choose Category' onChange={(e)=>{setFormData((ep)=>({...ep,category:e}))}} />
             </span>
           </div>
+          
           <div className='px-4   col-span-2'>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700"> Job Description</label>
             <textarea

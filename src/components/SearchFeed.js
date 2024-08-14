@@ -4,11 +4,16 @@ import { BsThreeDotsVertical, BsBookmark, BsBriefcase } from "react-icons/bs";
 import { useQuery } from 'react-query';
 import { GrCurrency } from "react-icons/gr";
 import axios from 'axios';
-const Feed = () => {
+const SearchFeed = ({city,category}) => {
 
   const fetchData =async()=>{
     try{
-   const res =await axios.get("http://localhost:5000/api/jobs/get-job");
+   const res =await axios.get(`http://localhost:5000/api/jobs/search-job`,{
+    params:{
+        city,
+        category
+    }
+   });
    return res.data
     }catch(error){
   console.log(error)
@@ -127,4 +132,4 @@ const Feed = () => {
   )
  }
 
-export default Feed
+export default SearchFeed
