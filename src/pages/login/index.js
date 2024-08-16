@@ -28,9 +28,11 @@ try{
     email:formData.email,
     password:formData.password
   })
-  console.log(res?.data?.token);
+  console.log(res?.data?.id);
   let token =res?.data?.token
+  let id = res?.data?.id
   cookie.set('token', token, { expires: 7, secure: true, sameSite: 'Strict' });
+  cookie.set('res', id, { expires: 7, secure: true, sameSite: 'Strict' });
   alert("login Successfully");
   handleCancle();
 }catch(error){

@@ -65,11 +65,11 @@ const [category,setCategory]=useState(null)
     }
   }
   return (
-    <div className='flex justify-center items center py-12'>
+    <div className='flex flex-col md:flex-row justify-center items center py-12'>
         <div className='border-2 flex items-center border-gray-300 px-4 rounded-l-2xl' >
             <label className='text-xl'><BsSearch /></label>
             {/* <input  type='text' placeholder='Job tiltle ,keyword or company' className='py-4 px-2 w-[300px] outline-none '/> */}
-           <div className='w-[300px]'>
+           <div className='w-[100px] md:w-[300px]'>
             <ReactSearchAutocomplete
             items={jobs2}
             onSearch={handleOnSearch}
@@ -94,7 +94,7 @@ const [category,setCategory]=useState(null)
         <div className='border-2 flex items-center border-gray-300 px-4 rounded-r-2xl' >
         <label className='text-xl'><BsGeoAlt /></label>
             {/* <input  type='text' placeholder='City,State,or remote' className='py-4 px-2 w-[300px] outline-none '/> */}
-            <div className='w-[300px]'>
+            <div className='w-[200px] md:w-[300px]'>
             <ReactSearchAutocomplete
             items={cities}
             onSearch={handleOnSearchCity}
