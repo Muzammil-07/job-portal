@@ -7,8 +7,11 @@ import SelectSearch from 'react-select-search'
 import jobsData from '../jobs'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import 'react-select-search/style.css'
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import cities from '../cities'
 const JobPost = () => {
+  const MySwal = withReactContent(Swal);
     const [formData,setFormData]=useState({
         title:"",
         companyName:"",
@@ -74,9 +77,15 @@ const JobPost = () => {
        ...formData
       })
       console.log(res);
-      alert("SignUp Successfully");
+      MySwal.fire("Job Created Successfully");
+
       handleCancle();
     }catch(error){
+      MySwal.fire({
+        icon:"error",
+        title:"Opps ",
+        text:error
+      })
     console.log(error)
     }
     }

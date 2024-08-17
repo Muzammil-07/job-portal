@@ -6,7 +6,7 @@ import { GrCurrency } from "react-icons/gr";
 import axios from "axios";
 import cookies from "js-cookie";
 import { useRouter } from "next/router";
-const Feed = () => {
+const Feed = ({data2,isLoading}) => {
   const router = useRouter();
   const fetchData = async () => {
     try {
@@ -18,10 +18,11 @@ const Feed = () => {
   };
   const empttObj = {};
   const [currentData, setCurrentData] = useState(null);
-  const data2 = useQuery("Jobs", fetchData);
-  if (!data2.isLoading) {
-    console.log(data2?.data?.data);
-  }
+  // const data2 = useQuery("Jobs", fetchData);
+  // if (!data2.isLoading) {
+  //   console.log(data2?.data?.data);
+  // }
+ 
   const data = [
     {
       companyName: "vision Tech",
@@ -89,10 +90,10 @@ const Feed = () => {
       }`}
     >
       <div className={`${!currentData ? "" : "overflow-y-scroll"}`}>
-        {data2.isLoading ? (
+        {isLoading ? (
           <div>Loading</div>
         ) : (
-          data2?.data?.data?.map((doc, index) => {
+          data2?.data?.map((doc, index) => {
             return (
               <div
                 className="border md:block hidden border-black rounded-lg px-4 space-y-2 py-2 h-[350px] md:h-[250px] my-2 cursor-pointer"
@@ -120,10 +121,10 @@ const Feed = () => {
       </div>
       <div className="md:hidden block">
       <div className={`${!currentData ? "" : "overflow-y-scroll"}`}>
-        {data2.isLoading ? (
+        {isLoading ? (
           <div>Loading</div>
         ) : (
-          data2?.data?.data?.map((doc, index) => {
+          data2?.data?.map((doc, index) => {
             return (
               <div
                 className="border   border-black rounded-lg px-4 space-y-2 py-2 h-[350px] md:h-[250px] my-2 cursor-pointer"

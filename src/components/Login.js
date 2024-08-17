@@ -2,7 +2,12 @@ import React from 'react';
 import Link from 'next/link';
 import { useState } from 'react';
 import axios from 'axios';
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { useRouter } from 'next/router';
 export default function Login() {
+  const MySwal = withReactContent(Swal);
+  const router =useRouter();
   const [formData,setFormData]=useState({
  
     email:"",
@@ -27,7 +32,9 @@ try{
     password:formData.password
   })
   console.log(res);
-  alert("login Successfully");
+  MySwal.fire("login Successfully");
+  router.reload("/dashboard")
+
   handleCancle();
 }catch(error){
 console.log(error)

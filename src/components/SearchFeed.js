@@ -4,8 +4,9 @@ import { BsThreeDotsVertical, BsBookmark, BsBriefcase } from "react-icons/bs";
 import { useQuery } from 'react-query';
 import { GrCurrency } from "react-icons/gr";
 import axios from 'axios';
+import { useRouter } from 'next/router';
 const SearchFeed = ({city,category}) => {
-
+const router =useRouter()
   const fetchData =async()=>{
     try{
    const res =await axios.get(`http://localhost:5000/api/jobs/search-job`,{
@@ -14,6 +15,7 @@ const SearchFeed = ({city,category}) => {
         category
     }
    });
+
    return res.data
     }catch(error){
   console.log(error)
@@ -23,7 +25,7 @@ const SearchFeed = ({city,category}) => {
   const empttObj ={}
   const[currentData,setCurrentData]=useState(null);
  const data2= useQuery('Jobs',fetchData)
- if(!data2.isLoading){
+ if(!data2?.isLoading){
   console.log(data2?.data?.data)
  }
   const data = [
@@ -75,61 +77,121 @@ const SearchFeed = ({city,category}) => {
   ];
   
   return (
-
-    <div className={`${!currentData?"px-12 grid grid-cols-1 gap-2 h-[100vh] w-full":"px-12 grid grid-cols-2 gap-2 h-[100vh]"}`}>
-      <div className={`${!currentData?"":"overflow-y-scroll"}`}>
-      {  data2.isLoading?  <div>Loading</div>:
+    <div
+    className={`${
+      !currentData
+        ? "px-12 grid grid-cols-1 gap-2 h-[100vh] w-full"
+        : "px-12 grid grid-cols-1 md:grid-cols-2 gap-2 h-[100vh]"
+    }`}
+  >
+    <div className={`${!currentData ? "" : "overflow-y-scroll"}`}>
+      {data2?.isLoading ? (
+        <div>Loading</div>
+      ) : (
         data2?.data?.data?.map((doc, index) => {
+          if(doc.category===localStorage.getItem("category") && doc.city===localStorage.getItem("city")){
           return (
-          
-            <div className='border border-black rounded-lg px-4 space-y-2 py-2 h-[250px] my-2 cursor-pointer' key={index} onClick={()=>{setCurrentData(doc)}}>
-            <div className='flex justify-between'>
-              <h1 className='font-sans text-xl underline underline-offset-4'>{doc.title}</h1>
-              <button className='text-2xl'><BsThreeDotsVertical /></button>
+            <div
+              className="border md:block hidden border-black rounded-lg px-4 space-y-2 py-2 h-[350px] md:h-[250px] my-2 cursor-pointer"
+              key={index}
+              onClick={() => {
+                setCurrentData(doc);
+              }}
+            >
+              <div className="flex justify-between">
+                <h1 className="font-sans text-xl underline underline-offset-4">
+                  {doc.title}
+                </h1>
+                <button className="text-2xl">
+                  <BsThreeDotsVertical />
+                </button>
+              </div>
+              <h4>{doc.companyName}</h4>
+              <h5>{doc.city}</h5>
+              <p>{doc.description.slice(0, 200)}</p>
+              <h6>Active 3 days ago</h6>
             </div>
-            <h2>{doc.companyName}</h2>
-            <h2>{doc.city}</h2>
-            <p>{doc.description.slice(0, 200)}</p>  
-            <h3>Active 3 days ago</h3>
-          </div>
-
-        )
-        })
-      }
-      </div>
-          {!currentData ?   <></>
-      : 
-      <div className='border border-black rounded-lg px-4 space-y-1 py-2 h-full  overflow-y-scroll '>
-       <h1 className='font-sans text-2xl '>{data[0].title}</h1>
-      
-        <h2 className='text-xl underline underline-offset-2'>{data[0].companyName}</h2>
-        <h2>{data[0].city}</h2>
-        <h2>Rs {data[0].salary}</h2>
-        <div className='flex gap-x-3'>
-          <button className='px-3 py-1 text-white text-lg bg-blue-700 hover:bg-blue-800 rounded-md my-2 font-bold'>Apply Now</button>
-          <button className='px-3  bg-slate-200 rounded-md'><BsBookmark /></button>
-          <button className='px-3  bg-slate-200 rounded-md'>0</button>
-
-        </div>
-        <div className='border-t-2 my-4 py-2 space-y-3 '>
-          <h1 className='text-xl py-3 font-bold'>Job Details</h1>
-          <span className='flex gap-x-2 items-center'>
-            <GrCurrency />
-            <h4 className='text-lg font-bold text-gray-600'>Pay</h4>
-          </span>
-          <button>{data[0].salary}</button>
-          <span className='flex gap-x-2 items-center'>
-            <BsBriefcase />
-            <h4 className='text-lg font-bold text-gray-600'>Job Type</h4>
-          </span>
-          <button>{data[0].jobType}</button>
-          <h2 className='text-lg font-bold'>Full Job Detail</h2>
-          <p>{data[0].description}</p>
-        </div>
-      </div> }
+          );
+ } })
+      )}
     </div>
+    <div className="md:hidden block">
+    <div className={`${!currentData ? "" : "overflow-y-scroll"}`}>
+      {data2?.isLoading ? (
+        <div>Loading</div>
+      ) : (
+        data2?.data?.data?.map((doc, index) => {
+          if(doc.category===localStorage.getItem("category") && doc.city===localStorage.getItem("city")){
+          return (
+            <div
+              className="border   border-black rounded-lg px-4 space-y-2 py-2 h-[350px] md:h-[250px] my-2 cursor-pointer"
+              key={index}
+              onClick={() => {
+              router.push("/job-view")
+              }}
+            >
+              <div className="flex justify-between">
+                <h1 className="font-sans text-xl underline underline-offset-4">
+                  {doc.title}
+                </h1>
+                <button className="text-2xl">
+                  <BsThreeDotsVertical />
+                </button>
+              </div>
+              <h2>{doc.companyName}</h2>
+              <h2>{doc.city}</h2>
+              <p>{doc.description.slice(0, 200)}</p>
+              <h3>Active 3 days ago</h3>
+            </div>
+          );
+  }  })
+      )}
+    </div>
+    </div>
+    {!currentData ? (
+      <></>
+    ) : (
+      <div className="border border-black rounded-lg px-4 space-y-1 py-2 h-full  overflow-y-scroll ">
+        <h1 className="font-sans text-2xl ">{currentData?.title}</h1>
 
-  )
+        <h2 className="text-xl underline underline-offset-2">
+          {currentData?.companyName}
+        </h2>
+        <h2>{currentData?.city}</h2>
+        <h2>Rs {currentData?.salary}</h2>
+        <div className="flex gap-x-3">
+          <button
+            className="px-3 py-1 text-white text-lg bg-blue-700 hover:bg-blue-800 rounded-md my-2 font-bold"
+            onClick={() => {
+              applyJob(currentData?._id);
+            }}
+          >
+            Apply Now
+          </button>
+          <button className="px-3  bg-slate-200 rounded-md">
+            <BsBookmark />
+          </button>
+          <button className="px-3  bg-slate-200 rounded-md">0</button>
+        </div>
+        <div className="border-t-2 my-4 py-2 space-y-3 ">
+          <h1 className="text-xl py-3 font-bold">Job Details</h1>
+          <span className="flex gap-x-2 items-center">
+            <GrCurrency />
+            <h4 className="text-lg font-bold text-gray-600">Pay</h4>
+          </span>
+          <button>{currentData?.salary}</button>
+          <span className="flex gap-x-2 items-center">
+            <BsBriefcase />
+            <h4 className="text-lg font-bold text-gray-600">Job Type</h4>
+          </span>
+          <button>{currentData?.jobType}</button>
+          <h2 className="text-lg font-bold">Full Job Detail</h2>
+          <p>{currentData?.description}</p>
+        </div>
+      </div>
+    )}
+  </div>
+);
  }
 
 export default SearchFeed

@@ -4,7 +4,13 @@ import { useState } from 'react';
 import axios from 'axios';
 import Header from '@/components/Header';
 import cookie from 'js-cookie';
+import Swal from "sweetalert2";
+import { useRouter } from 'next/router';
+import withReactContent from "sweetalert2-react-content";
 export default function Login() {
+  const MySwal = withReactContent(Swal);
+  
+  const router =useRouter();
   const [formData,setFormData]=useState({
  
     email:"",
@@ -33,7 +39,8 @@ try{
   let id = res?.data?.id
   cookie.set('token', token, { expires: 7, secure: true, sameSite: 'Strict' });
   cookie.set('res', id, { expires: 7, secure: true, sameSite: 'Strict' });
-  alert("login Successfully");
+  MySwal.fire("login Successfully");
+  router.push("/dashboard")
   handleCancle();
 }catch(error){
 console.log(error)

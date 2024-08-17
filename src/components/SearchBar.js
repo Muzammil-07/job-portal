@@ -62,6 +62,8 @@ const [category,setCategory]=useState(null)
   const gotoSearch=()=>{
     if(city&&category){
     router.push({pathname:"/search-page",query:{city,category}})
+    localStorage.setItem("city",city);
+    localStorage.setItem("category",category)
     }
   }
   return (

@@ -2,8 +2,18 @@ import React from 'react'
 import Header from '@/components/Header'
 import SearchBar from '@/components/SearchBar'
 import Feed from '@/components/Feed'
-
+import axios from 'axios'
+import { useQuery } from 'react-query'
 const Dashboard = ({Childrens}) => {
+  const fetchData = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/jobs/get-job");
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const {isLoading,data} = useQuery("Jobs", fetchData);
   return (
     <div><Header />
     <SearchBar />
@@ -15,7 +25,9 @@ const Dashboard = ({Childrens}) => {
 <button className='hover:text-blue-600 hover:border-b-4 hover:border-blue-600 border-spacing-5'> Recent Search</button>
 </div>
     </div>
-    <Feed />
+    {!isLoading? <Feed data2={data} isLoading={isLoading}/>:<></>
+    }
+    
 
     </div>
   )

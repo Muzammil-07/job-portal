@@ -4,9 +4,12 @@ import logo from '../../public/logo.png';
 import { BsChatLeftTextFill, BsFillBellFill, BsPersonFill } from 'react-icons/bs';
 import Link from 'next/link';
 import cookie from 'js-cookie';
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { useRouter } from 'next/router';
 import Dropdown from 'react-bootstrap/Dropdown';
 const Header = () => {
+  const MySwal = withReactContent(Swal);
   const [myToken, setMyToken] = useState(null);
   const router = useRouter();
 
@@ -20,7 +23,7 @@ const Header = () => {
     if (token) {
       router.push('/jobpost');
     } else {
-      alert('Please log in first.');
+      MySwal.fire('Please log in first.');
     }
   };
 
