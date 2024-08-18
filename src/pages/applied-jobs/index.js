@@ -44,6 +44,7 @@ const AppliedJobs = () => {
               <h2 className='text-lg'>{doc.city}</h2>
               <p className='text-md'>{doc.description.slice(0, 200)}</p>
               <h3 className='text-sm'>Applied {doc.appliedAt}</h3>
+              {/* <h3>{doc?.status}</h3> */}
             </div>
             </div>
             )

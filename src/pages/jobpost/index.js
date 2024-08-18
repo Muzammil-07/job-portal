@@ -93,6 +93,14 @@ const JobPost = () => {
   return (
     <div className="flex items-center flex-col justify-center  ">
         <Header />
+        <div className='py-2 flex justify-around w-full'>
+          <div>
+          <Link href="/jobpost"><span className='text-xl text-black '>Job Post </span></Link>
+          </div>
+          <div>
+          <Link href="/check-job"><span className='text-xl text-black '>Check Applied Jobs </span></Link>
+        </div>
+        </div>
       <div className="w-full px-12 p-8 space-y-8 my-8 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center text-gray-900">Post a Job</h2>
         <form className=" gap-y-2 gap-x-4 grid grid-cols-2" onSubmit={handleFormSubmit}>
