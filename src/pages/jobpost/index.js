@@ -10,19 +10,25 @@ import 'react-select-search/style.css'
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import cities from '../cities'
+import cookies from 'js-cookie'
 const JobPost = () => {
+  const id = cookies.get('res')
   const MySwal = withReactContent(Swal);
     const [formData,setFormData]=useState({
         title:"",
         companyName:"",
-        education:"",
-        jobType:"",
+        education:"middle",
+        jobType:"fullTime",
         salaryFrom:"",
         salaryTo:"",
         category:"",
-        description:""
+        description:"",
+        postedBy:"",
+        city:"karachi"
+        
 
       })
+      console.log(id)
      const handleFormChange= (event)=>{
      const {name,value} =event.target;
      setFormData((prev)=>({...prev,[name]:value}))
@@ -71,6 +77,7 @@ const JobPost = () => {
     }
     const handleFormSubmit=async(event)=>{
       event.preventDefault()
+      setFormData((e)=>({...e,postedBy:cookies.get('res')}))
     
     try{
       const res = await axios.post("http://localhost:5000/api/jobs/post-job",{
@@ -142,7 +149,7 @@ const JobPost = () => {
               value={formData.education}
               className="w-full px-3 py-2 mt-1 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
-                <option value="middle">Middle</option>
+                <option value="middle" defaultChecked >Middle</option>
                 <option value="matric">Matric</option>
                 <option value="intermediate">Intermediate</option>
                 <option value="bachlors">Bachlors</option>
@@ -161,7 +168,7 @@ const JobPost = () => {
               onChange={handleFormChange}
               className="w-full px-3 py-2 mt-1 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             >
-                <option value="fullTime">Fulltime</option>
+                <option value="fullTime" defaultChecked>Fulltime</option>
                 <option value="partTime">Parttime</option>
                 <option value="remote">Remote</option>
                 </select>
