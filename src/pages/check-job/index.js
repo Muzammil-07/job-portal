@@ -2,10 +2,12 @@ import Header from '@/components/Header'
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useQuery } from 'react-query'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import cookies from 'js-cookie'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 const CheckJob = () => {
+  const router =useRouter();
   const fetchData = async () => {
     try {
       const id = cookies.get('res')
@@ -23,6 +25,14 @@ const CheckJob = () => {
   if (!isLoading) {
     console.log(data)
   }
+  const goTo = (doc) => {
+    const docString = JSON.stringify(doc);
+    router.push({
+      pathname: "/application-check",
+      query: { data: docString }
+    });
+  };
+  
   return (
     <div>
       <Header />
@@ -41,9 +51,8 @@ const CheckJob = () => {
             <div
               className="border md:block hidden border-black rounded-lg px-2 mx-12 space-y-2 py-2 h-[350px] md:h-[250px] my-2 cursor-pointer"
             key={index}
-              onClick={() => {
-                setCurrentData(doc);
-              }}
+              onClick={() =>  goTo(doc)
+              }
             >
               <div className="flex justify-between">
                 <h1 className="font-sans text-xl underline underline-offset-4">
