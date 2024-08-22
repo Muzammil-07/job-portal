@@ -36,7 +36,7 @@ const Header = () => {
     <div className="bg-white shadow-md w-full">
       <div className="flex items-center justify-between h-[60px] px-4 md:px-6 lg:px-8">
         <div>
-          <Image src={logo} height={40} width={100} className="object-contain w-[150px] sm:w-[200px]" />
+          <Image src={logo} height={40} alt='logo' width={100} className="object-contain w-[150px] sm:w-[200px]" />
         </div>
         <div className="hidden md:flex gap-8 px-4 lg:px-8">
           <Link href="/dashboard">Home</Link>

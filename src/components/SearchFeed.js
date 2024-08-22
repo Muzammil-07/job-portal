@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 import { GrCurrency } from "react-icons/gr";
 import axios from 'axios';
 import { useRouter } from 'next/router';
-const SearchFeed = ({city,category}) => {
+const SearchFeed = ({city,category,searchCount}) => {
 const router =useRouter()
   const fetchData =async()=>{
     try{
@@ -26,7 +26,8 @@ const router =useRouter()
   const[currentData,setCurrentData]=useState(null);
  const data2= useQuery('Jobs',fetchData)
  if(!data2?.isLoading){
-  console.log(data2?.data?.data)
+  console.log(data2?.data?.data?.length)
+  searchCount(data2?.data?.data.length)
  }
   const data = [
     {

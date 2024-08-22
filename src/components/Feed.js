@@ -1,7 +1,7 @@
 import Dashboard from "@/pages/dashboard";
 import React, { useState } from "react";
 import { BsThreeDotsVertical, BsBookmark, BsBriefcase } from "react-icons/bs";
-import { useQuery } from "react-query";
+
 import { GrCurrency } from "react-icons/gr";
 import axios from "axios";
 import cookies from "js-cookie";
@@ -130,7 +130,8 @@ const Feed = ({data2,isLoading}) => {
                 className="border   border-black rounded-lg px-4 space-y-2 py-2 h-[350px] md:h-[250px] my-2 cursor-pointer"
                 key={index}
                 onClick={() => {
-                router.push("/job-view")
+                  let data=JSON.stringify(doc)
+                router.push({pathname:"/job-view",query:{data}})
                 }}
               >
                 <div className="flex justify-between">
@@ -160,8 +161,8 @@ const Feed = ({data2,isLoading}) => {
           <h2 className="text-xl underline underline-offset-2">
             {currentData?.companyName}
           </h2>
-          <h2>{currentData?.city}</h2>
-          <h2>Rs {currentData?.salary}</h2>
+          <h2 className="text-lg">{currentData?.city}</h2>
+          <h2 className="text-lg">Rs {currentData?.salaryFrom}-{currentData?.salaryTo}</h2>
           <div className="flex gap-x-3">
             <button
               className="px-3 py-1 text-white text-lg bg-blue-700 hover:bg-blue-800 rounded-md my-2 font-bold"
@@ -182,6 +183,9 @@ const Feed = ({data2,isLoading}) => {
               <GrCurrency />
               <h4 className="text-lg font-bold text-gray-600">Pay</h4>
             </span>
+            <div>
+            <h2 className="text-lg">Rs {currentData?.salaryFrom}-{currentData?.salaryTo}</h2>
+            </div>
             <button>{currentData?.salary}</button>
             <span className="flex gap-x-2 items-center">
               <BsBriefcase />
